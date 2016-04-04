@@ -1,3 +1,4 @@
+set nocompatible
 " Pathogen setup
 execute pathogen#infect()
 
@@ -82,8 +83,12 @@ nmap k gk
 " Vi mode escape timeout
 set timeoutlen=1000 ttimeoutlen=0
 
-" NERDTree Settings
-map <C-n> :NERDTreeToggle<CR>
+" saner tab navigation
+
+map <C-Right> <Esc>:tabn<CR>
+map <C-Left> <Esc>:tabp<CR>
+map <C-t> <Esc>:tabnew<CR>
+
 
 " Syntastic settings
 
@@ -93,7 +98,6 @@ set statusline+=%*
 let g:syntastic_enable_signs=1
 let g:syntastic_check_on_open=1
 
-" let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_python_checkers=['pyflakes']
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list=1
@@ -111,15 +115,18 @@ nnoremap <leader>pg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap <leader>pd :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>pc :YcmCompleter GoToDeclaration<CR>
 
+" NERDTree Settings
+map <C-n> :NERDTreeToggle<CR>
+map <leader>r :NERDTreeFind<cr>
+
 " airline Settings
 let g:airline_powerline_fonts=1
 let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 
-let g:unite_source_history_yank_enable = 1
-" let g:unite_source_rec_async_command='ag --nocolor --nogroup -g ""'
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-" search a file in the filetree
-nnoremap <space><space> :split<cr> :<C-u>Unite -start-insert file_rec<cr>
-" reset not it is <C-l> normally
-:nnoremap <space>r <Plug>(unite_restart)
+" CommandT stuffs
+let g:CommandTTraverseSCM = "pwd"
+let g:CommandTSmartCase = 1
+let g:CommandTMaxFiles = 500000
+let g:CommandTInputDebounce = 50
+let g:CommandTFileScanner = 'watchman'
