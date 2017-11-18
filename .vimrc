@@ -1,6 +1,17 @@
+call plug#begin('~/.vim/plugged')
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'scrooloose/nerdtree'
+Plug 'edkolev/tmuxline.vim'
+Plug 'vim-syntastic/syntastic'
+Plug 'mhinz/vim-signify'
+Plug 'pangloss/vim-javascript'
+call plug#end()
+
 set nocompatible
-" Pathogen setup
-execute pathogen#infect()
 
 " Dates/Times 
 imap \date  <C-R>=strftime("%d %B %Y")<CR>
@@ -14,13 +25,25 @@ nnoremap <CR> :noh<CR><CR>
 
 syntax on 
 filetype on 
-filetype plugin indent on
+filetype plugin indent on " show existing tab with 4 spaces width
+
+" code folding
+set nofen
+set foldmethod=indent         " indent based folding
+
+set copyindent " copy previous indent when audo indenting
+set shiftround
+set autoindent
+
+set tabstop=2             " when indenting with '>', use 4 spaces width
+set shiftwidth=2          " On pressing tab, insert 4 spaces
+set expandtab
 
 " Color Scheme
 set background=dark
 colorscheme solarized
-hi Visual   ctermfg=NONE   ctermbg=239   cterm=NONE
-hi Search   ctermfg=7
+" hi Visual   ctermfg=NONE   ctermbg=239   cterm=NONE
+" hi Search   ctermfg=7
 
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
@@ -59,19 +82,13 @@ set ruler                     " show cursor position
 
 set encoding=utf-8
 
-" code folding
-set nofen
-set foldmethod=indent         " indent based folding
-
-set copyindent " copy previous indent when audo indenting
-set shiftround
-set autoindent
-
 " make split windows easier to navigate
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-h> <C-w>h
-map <C-l> <C-w>l
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+nnoremap <C-x> <C-w>q
+nnoremap <C-v> :vsplit<CR>
 
 " nice backspacing
 set bs=2
@@ -84,11 +101,10 @@ nmap k gk
 set timeoutlen=1000 ttimeoutlen=0
 
 " saner tab navigation
-
-map <C-Right> <Esc>:tabn<CR>
-map <C-Left> <Esc>:tabp<CR>
+map <S-tab> <Esc>:tabprevious<CR>
+map <tab> <Esc>:tabnext<CR>
 map <C-t> <Esc>:tabnew<CR>
-
+map <C-q> <Esc>:tabclose<CR>
 
 " Syntastic settings
 
@@ -97,11 +113,41 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 let g:syntastic_enable_signs=1
 let g:syntastic_check_on_open=1
-
-let g:syntastic_python_checkers=['pyflakes']
+let g:syntastic_python_checkers=['flake8']
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list=1
-let g:syntastic_quiet_messages = { "type": "style" }
+" let g:syntastic_quiet_messages = { "type": "style" }
+let g:syntastic_javascript_checkers=['flow']
+let g:syntastic_javascript_flow_exe='flow'
+
+" Syntax highlighting for flow
+let g:javascript_plugin_flow = 1
+
+" fzf mappings
+nnoremap <leader>t :Files<CR>
+nnoremap <leader>b :Buffer<CR>
+nnoremap <leader>s :Find<CR>
+
+" Find command use fzf
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
+
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+" Advanced customization using autoload functions
+inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
+
+" Use ripgrep for vim grep
+set grepprg=rg\ --vimgrep
+
 
 " YouCompleteMe
 let g:ycm_autoclose_preview_window_after_completion = 1
@@ -116,17 +162,10 @@ nnoremap <leader>pd :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>pc :YcmCompleter GoToDeclaration<CR>
 
 " NERDTree Settings
-map <C-n> :NERDTreeToggle<CR>
+map <leader>n :NERDTreeToggle<CR>
 map <leader>r :NERDTreeFind<cr>
+let NERDTreeQuitOnOpen = 1
 
 " airline Settings
 let g:airline_powerline_fonts=1
-let g:airline#extensions#syntastic#enabled = 1
-let g:airline#extensions#tabline#enabled = 1
-
-" CommandT stuffs
-let g:CommandTTraverseSCM = "pwd"
-let g:CommandTSmartCase = 1
-let g:CommandTMaxFiles = 500000
-let g:CommandTInputDebounce = 50
-let g:CommandTFileScanner = 'watchman'
+let g:airline_theme='simple'
