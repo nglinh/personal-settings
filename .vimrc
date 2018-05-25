@@ -6,9 +6,12 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdtree'
 Plug 'edkolev/tmuxline.vim'
-Plug 'vim-syntastic/syntastic'
+Plug 'w0rp/ale'
 Plug 'mhinz/vim-signify'
+Plug 'majutsushi/tagbar'
 Plug 'pangloss/vim-javascript'
+Plug 'Valloric/YouCompleteMe'
+Plug 'mxw/vim-jsx'
 call plug#end()
 
 set nocompatible
@@ -53,12 +56,11 @@ set splitbelow
 set splitright
 
 " Line width convention
-set colorcolumn=80
+" set colorcolumn=80
 
 syn match tab display "\t"
 hi link tab Error
 
-set number
 set autoread
 set hidden
 set ttyfast
@@ -101,27 +103,25 @@ nmap k gk
 set timeoutlen=1000 ttimeoutlen=0
 
 " saner tab navigation
-map <S-tab> <Esc>:tabprevious<CR>
-map <tab> <Esc>:tabnext<CR>
-map <C-t> <Esc>:tabnew<CR>
-map <C-q> <Esc>:tabclose<CR>
+" nmap <S-tab> :tabprevious<CR>
+nmap <C-tab> :tabnext<CR>
+nmap <leader>z :tabnew %<CR>
+nmap <leader>w :tabclose<CR>
 
-" Syntastic settings
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_enable_signs=1
-let g:syntastic_check_on_open=1
-let g:syntastic_python_checkers=['flake8']
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list=1
-" let g:syntastic_quiet_messages = { "type": "style" }
-let g:syntastic_javascript_checkers=['flow']
-let g:syntastic_javascript_flow_exe='flow'
+let g:airline#extensions#ale#enabled = 1
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_linters = {
+\   'python': ['flake8'],
+\}
+let g:ale_python_flake8_executable = 'python3.6'
+let g:ale_python_flake8_options = '-m flake8'
+let g:ale_python_flake8_use_global = 0
+" let g:ale_python_mypy_options= '--ignore-missing-import'
 
 " Syntax highlighting for flow
 let g:javascript_plugin_flow = 1
+let g:jsx_ext_required = 0
 
 " fzf mappings
 nnoremap <leader>t :Files<CR>
@@ -150,6 +150,7 @@ set grepprg=rg\ --vimgrep
 
 
 " YouCompleteMe
+let g:ycm_register_as_syntastic_checker = 0
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_min_num_identifier_candidate_chars = 4
 let g:ycm_enable_diagnostic_signs = 0
@@ -169,3 +170,7 @@ let NERDTreeQuitOnOpen = 1
 " airline Settings
 let g:airline_powerline_fonts=1
 let g:airline_theme='simple'
+
+" tagbar setting
+nmap <F8> :TagbarOpen fj<CR>
+nmap <leader>o :TagbarToggle<CR>
