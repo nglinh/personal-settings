@@ -12,6 +12,7 @@ Plug 'majutsushi/tagbar'
 Plug 'pangloss/vim-javascript'
 Plug 'Valloric/YouCompleteMe'
 Plug 'mxw/vim-jsx'
+Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
 
 set nocompatible
@@ -73,7 +74,7 @@ set ignorecase
 set smartcase
 set mousehide "hide mouse while typing
 set wildmode=list:full
-set nu
+" set nu
 
 set scrolloff=5               " scroll offsett, min lines above/below cursor
 set scrolljump=5              " jump 5 lines when running out of the screen
@@ -114,10 +115,10 @@ let g:ale_lint_on_text_changed = 'normal'
 let g:ale_linters = {
 \   'python': ['flake8'],
 \}
-let g:ale_python_flake8_executable = 'python3.6'
-let g:ale_python_flake8_options = '-m flake8'
-let g:ale_python_flake8_use_global = 0
-" let g:ale_python_mypy_options= '--ignore-missing-import'
+let g:ale_fixers = {
+\   'python': ['black'],
+\}
+let g:ale_python_flake8_use_global = 1
 
 " Syntax highlighting for flow
 let g:javascript_plugin_flow = 1
