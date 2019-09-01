@@ -176,7 +176,7 @@ let NERDTreeQuitOnOpen = 1
 
 " airline Settings
 let g:airline_powerline_fonts=1
-let g:airline_theme='simple'
+let g:airline_theme='luna'
 
 " tagbar setting
 nmap <F8> :TagbarOpen fj<CR>
