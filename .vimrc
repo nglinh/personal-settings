@@ -17,7 +17,6 @@ Plug 'w0rp/ale'
 Plug 'mhinz/vim-signify'
 Plug 'majutsushi/tagbar'
 Plug 'pangloss/vim-javascript'
-Plug 'Valloric/YouCompleteMe'
 Plug 'mxw/vim-jsx'
 Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
@@ -158,17 +157,17 @@ set grepprg=rg\ --vimgrep
 
 
 " YouCompleteMe
-let g:ycm_register_as_syntastic_checker = 0
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_min_num_identifier_candidate_chars = 4
-let g:ycm_enable_diagnostic_signs = 0
-let g:ycm_error_symbol = 'x'
-let g:ycm_warning_symbol = '!'
-let g:ycm_server_keep_logfiles = 1
-let g:ycm_server_log_level = 'debug'
-nnoremap <leader>pg :YcmCompleter GoToDefinitionElseDeclaration<CR>
-nnoremap <leader>pd :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>pc :YcmCompleter GoToDeclaration<CR>
+" let g:ycm_register_as_syntastic_checker = 0
+" let g:ycm_autoclose_preview_window_after_completion = 1
+" let g:ycm_min_num_identifier_candidate_chars = 4
+" let g:ycm_enable_diagnostic_signs = 0
+" let g:ycm_error_symbol = 'x'
+" let g:ycm_warning_symbol = '!'
+" let g:ycm_server_keep_logfiles = 1
+" let g:ycm_server_log_level = 'debug'
+" nnoremap <leader>pg :YcmCompleter GoToDefinitionElseDeclaration<CR>
+" nnoremap <leader>pd :YcmCompleter GoToDefinition<CR>
+" nnoremap <leader>pc :YcmCompleter GoToDeclaration<CR>
 
 " NERDTree Settings
 map <leader>n :NERDTreeToggle<CR>
