@@ -134,7 +134,7 @@ setopt prompt_subst
 PS1='%n@%m $(shrink_path -f)>'
 
 export GOPATH=~/go
-export PATH=$PATH:$GOPATH/bin:~/.yarn/bin
+export PATH=$PATH:$GOPATH/bin:~/.yarn/bin:~/.local/bin
 export DISPLAY=:0 
 
 if [[ -s "${HOME}/.kube/kuberc" ]]; then
@@ -142,3 +142,5 @@ if [[ -s "${HOME}/.kube/kuberc" ]]; then
 fi
 
 source <(kubectl completion zsh)
+
+eval `dircolors ${HOME}/.dircolors.ansi-dark`
