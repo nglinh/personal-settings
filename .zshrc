@@ -112,6 +112,9 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
 bindkey -v
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -129,3 +132,13 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 
 setopt prompt_subst
 PS1='%n@%m $(shrink_path -f)>'
+
+export GOPATH=~/go
+export PATH=$PATH:$GOPATH/bin:~/.yarn/bin
+export DISPLAY=:0 
+
+if [[ -s "${HOME}/.kube/kuberc" ]]; then
+  source "${HOME}/.kube/kuberc"
+fi
+
+source <(kubectl completion zsh)
