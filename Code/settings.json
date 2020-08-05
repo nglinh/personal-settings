@@ -1,0 +1,37 @@
+{
+    "gitlens.advanced.messages": {
+        "suppressShowKeyBindingsNotice": true
+    },
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveTimeout": 3000,
+    "editor.codeActionsOnSaveTimeout": 3000,
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "python.formatting.provider": "black",
+    "python.linting.flake8Enabled": true,
+    "python.linting.mypyEnabled": true,
+    // "[python]": {
+    //     "editor.codeActionsOnSave": {
+    //         "source.organizeImports": true
+    //     }
+    // },
+    "vim.useSystemClipboard": true,
+    "keyboard.dispatch": "keyCode",
+    "python.dataScience.sendSelectionToInteractiveWindow": false,
+    "editor.minimap.enabled": false,
+    "window.zoomLevel": 0,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "prettier.packageManager": "yarn",
+    "tslint.packageManager": "yarn",
+    "prettier.resolveGlobalModules": true,
+    "vs-kubernetes": {
+        "vs-kubernetes.knownKubeconfigs": [
+            "/home/nglinh/.kube/kuberc",
+            "/home/nglinh/.kube/govtech-va-production.yaml",
+            "/home/nglinh/.kube/config"
+        ],
+        "vs-kubernetes.kubeconfig": "/home/nglinh/.kube/config"
+    },
+    "explorer.confirmDragAndDrop": false,
+}
